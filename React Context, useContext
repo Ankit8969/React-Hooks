@@ -1,0 +1,73 @@
+We use, useContext for passing the data b/w the parent child without passing the data b/w consecutive child we directly able to share the data b/w the child component
+
+
+/* App.js File*/
+
+import React, { createContext } from "react";
+import CompA from "./compA";
+import "./index.css";
+
+export const FirstName = createContext();
+
+const App = () => {
+  return (
+    <FirstName.Provider value={"Ankit yadav"}>
+      <CompA />
+    </FirstName.Provider>
+  );
+};
+
+export default App;
+
+/* CompA */
+import React from "react";
+import CompB from "./compB";
+
+const CompA = () => {
+  return <CompB />;
+};
+
+export default CompA;
+
+/*Comp B*/
+import React from "react";
+import CompC from "./compC";
+
+const CompB = () => {
+  return <CompC />;
+};
+
+export default CompB;
+
+
+
+/* Comp C */
+
+import React, { useContext } from "react";
+import { FirstName } from "./App";
+
+const CompC = () => {
+  const name = useContext(FirstName);
+  return <h2>My name is {name}</h2>;
+};
+
+export default CompC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
