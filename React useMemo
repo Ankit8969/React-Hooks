@@ -1,0 +1,51 @@
+import React, { useState, useEffect, useMemo } from "react";
+import "./index.css";
+
+const App = () => {
+  const [number, setNumber] = useState(0);
+  const [theme, setTheme] = useState(false);
+  const [value, setValue] = useState({
+    backgroundColor: "black",
+    color: "white",
+  });
+
+  const slowFunction = (number) => {
+    for (let i = 0; i <= 1000000000; i++) {}
+    return number * 2;
+  };
+
+  const doubleNumber = useMemo(() => {
+    return slowFunction(number);
+  }, [number]);
+
+  useEffect(() => {
+    // console.log(number);
+  }, [number]);
+
+  const handleTheme = () => {
+    setTheme(!theme);
+    const temp = { value };
+    if (theme) {
+      temp.backgroundColor = "white";
+      temp.color = "black";
+    } else {
+      temp.backgroundColor = "black";
+      temp.color = "white";
+    }
+    setValue(temp);
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <input
+        type="number"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
+      />
+      <button onClick={() => handleTheme()}>Change Theme</button>
+      <div style={value}>{doubleNumber}</div>
+    </div>
+  );
+};
+
+export default App;
